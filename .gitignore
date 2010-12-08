@@ -1,0 +1,8 @@
+syntax: glob
+*~
+Gemfile.lock
+.idea
+.*.swp
+
+syntax: regexp
+(.*/)?\#[^/]*\#$

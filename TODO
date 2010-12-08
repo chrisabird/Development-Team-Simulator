@@ -1,0 +1,4 @@
+TODO 
+* Should be able to set a miniumum batch size of work 
+* Add variation with upper and lower boundries to the amount of work a team member can complete 
+* Fix console app to demonstrate two team configurations

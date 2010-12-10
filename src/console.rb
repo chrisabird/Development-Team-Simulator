@@ -1,27 +1,38 @@
-require './team_with_no_batching'
 require './team_member'
 require './queue'
+require './item'
+require './calendar'
 
-@customer = TeamMember.new
-@analyst_queue = Queue.new
-@analyst = TeamMember.new
-@developer_queue = Queue.new
-@developer = TeamMember.new
-@qa_queue = Queue.new
-@qa = TeamMember.new
-@done_queue = Queue.new
-@team = TeamWithNoBatching.new(@customer, @analyst_queue, @analyst, @developer_queue, @developer, @qa_queue, @qa, @done_queue)
+@analyst_queue = ItemQueue.new
+@developer_queue = ItemQueue.new
+@qa_queue = ItemQueue.new
+@done_queue = ItemQueue.new
+		
+@customer = TeamMember.new @analyst_queue, 20
+@analyst = TeamMember.new @developer_queue, 1, @analyst_queue
+@developer = TeamMember.new @qa_queue, 5, @developer_queue
+@qa = TeamMember.new @done_queue, 2, @qa_queue
+		
+@calendar = Calendar.new
+@qa.listen_to @calendar
+@developer.listen_to @calendar
+@analyst.listen_to @calendar
+@customer.listen_to @calendar
 
-@customer.set_number_of_items_able_to_complete 20
-@analyst.set_number_of_items_able_to_complete 10
-@developer.set_number_of_items_able_to_complete 5
-@qa.set_number_of_items_able_to_complete 2
-
-
-for i in 1..20 do
-  @team.do_work
-  print @analyst_queue.item_count.to_s.ljust(5)
-  print @developer_queue.item_count.to_s.ljust(5)
-  print @qa_queue.item_count.to_s.ljust(5)
-  puts @done_queue.item_count.to_s
+for i in 1..10 do
+	@calendar.move_to_next_day
+  print @analyst_queue.length.to_s.ljust(10)
+  print @developer_queue.length.to_s.ljust(10)
+  print @qa_queue.length.to_s.ljust(10)
+  puts @done_queue.length.to_s
 end
+
+averageLeadTime = 0
+for item in @done_queue do
+	averageLeadTime = averageLeadTime + item.leadTime
+	print item.started_at.to_s.ljust(5)
+	print item.completed_at.to_s.ljust(5)
+	puts item.leadTime
+end
+averageLeadTime = averageLeadTime / @done_queue.length
+puts averageLeadTime

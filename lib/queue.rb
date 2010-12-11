@@ -1,4 +1,8 @@
-class ItemQueue < Array
+class ItemQueue
+	def initialize 
+		@queue = []
+	end
+
   def how_many_items_can_be_work_on (number_of_items_able_to_complete)
     number_of_items_completed = 0
     if has_pending_work
@@ -12,11 +16,15 @@ class ItemQueue < Array
   end
 
 	def deq
-		pop
+		@queue.shift
 	end
 
 	def enq(item)
-		push item
+		@queue << item
+	end
+
+	def length
+		@queue.length
 	end
 
   private 

@@ -23,4 +23,15 @@ describe "Queue" do
     number_of_items_that_can_be_worked_on = @queue.how_many_items_can_be_work_on 2
     number_of_items_that_can_be_worked_on.should be 0
   end
+
+	it "should be able to enqueue items of work" do
+		@queue.enq Item.new(1)
+		@queue.length.should be 1
+	end
+
+	it "should be able to dequeue items of work" do
+		@queue.enq Item.new(1)
+		@queue.enq Item.new(2)
+		@queue.deq.started_at.should be 1
+	end
 end

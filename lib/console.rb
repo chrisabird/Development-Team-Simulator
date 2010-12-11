@@ -1,7 +1,7 @@
-require './team_member'
-require './queue'
-require './item'
-require './calendar'
+require 'team_member'
+require 'queue'
+require 'item'
+require 'calendar'
 
 @analyst_queue = ItemQueue.new
 @developer_queue = ItemQueue.new

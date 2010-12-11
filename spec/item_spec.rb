@@ -1,4 +1,4 @@
-require './src/item'
+require 'item'
 
 describe "Item" do
 	it "should be able to calculate the lead time" do

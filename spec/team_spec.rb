@@ -1,7 +1,7 @@
-require './src/team_member'
-require './src/queue'
-require './src/item'
-require './src/calendar'
+require 'team_member'
+require 'queue'
+require 'item'
+require 'calendar'
 
 describe "Team" do
   before(:each) do

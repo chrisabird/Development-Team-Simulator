@@ -1,4 +1,4 @@
-require './src/queue'
+require 'queue'
 
 describe "Queue" do
   before(:each) do

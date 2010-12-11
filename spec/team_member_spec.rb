@@ -1,4 +1,4 @@
-require './src/team_member'
+require 'team_member'
 
 describe "TeamMember" do
  	before(:each) do

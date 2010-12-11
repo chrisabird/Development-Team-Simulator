@@ -1,4 +1,4 @@
-require './src/calendar'
+require 'calendar'
 
 describe "Calendar" do
 	before(:each) do

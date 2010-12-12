@@ -24,23 +24,23 @@ describe "Batch" do
     number_of_items_that_can_be_worked_on.should be 0
   end
 
-	it "should be able to enqueue completed items work" do
-		@batch.enq Item.new(1)
-		@batch.completed_work.length.should be 1
-	end
+  it "should be able to enqueue completed items work" do
+    @batch.enq Item.new(1)
+    @batch.completed_work.length.should be 1
+  end
 
-	it "should be able to dequeue items available to work on" do
-		@batch.add_item_to_work_on Item.new(1)
-		@batch.add_item_to_work_on Item.new(2)
-		@batch.items_to_work_on.length.should be 2
-	end
+  it "should be able to dequeue items available to work on" do
+    @batch.add_item_to_work_on Item.new(1)
+    @batch.add_item_to_work_on Item.new(2)
+    @batch.items_to_work_on.length.should be 2
+  end
 
-	it "should be able to tell when all work has been completed in a batch" do
-		@batch.add_item_to_work_on Item.new(1)
-		@batch.is_not_complete.should be true
-		item_in_progress = @batch.deq
-		@batch.is_not_complete.should be true
-		@batch.enq item_in_progress
-		@batch.is_not_complete.should be false
-	end
+  it "should be able to tell when all work has been completed in a batch" do
+    @batch.add_item_to_work_on Item.new(1)
+    @batch.is_not_complete.should be true
+    item_in_progress = @batch.deq
+    @batch.is_not_complete.should be true
+    @batch.enq item_in_progress
+    @batch.is_not_complete.should be false
+  end
 end

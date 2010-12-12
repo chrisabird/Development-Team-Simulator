@@ -10,6 +10,6 @@ class Item
 	end
 
 	def leadTime
-		@completed_at - @started_at
+		(@completed_at - @started_at ) + 1
 	end
 end

@@ -1,4 +1,6 @@
 TODO 
-* Should be able to set a miniumum batch size of work 
-* Add variation with upper and lower boundries to the amount of work a team member can complete 
-* Fix console app to demonstrate two team configurations
+* A team member should not do work unless the target queue is below a threshold 
+* A team member should be able to start work regargless of work in the completed queue 
+* A queue should be able to handing batching of work
+* A team members work duration should be based on there role and an items duration for that role
+* An item's duration per role should have variation of one standard deviation from a median

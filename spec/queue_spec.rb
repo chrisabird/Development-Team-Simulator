@@ -5,25 +5,6 @@ describe "Queue" do
     @queue = ItemQueue.new
   end
 
-  it "should be able to calculate the number of items that can be worked on when there is enough" do
-    @queue.enq Item.new(1)
-    @queue.enq Item.new(1)
-    number_of_items_that_can_be_worked_on = @queue.how_many_items_can_be_work_on 2
-    number_of_items_that_can_be_worked_on.should be 2
-  end
-
-  it "should be able to calculate the number of items that can be worked on when there is not enough" do
-    @queue.enq Item.new(1)
-    @queue.enq Item.new(1)
-    number_of_items_that_can_be_worked_on = @queue.how_many_items_can_be_work_on 4
-    number_of_items_that_can_be_worked_on.should be 2
-  end
-
-  it "should be able to calculate the number of items that can b worked on when the queue is empty" do
-    number_of_items_that_can_be_worked_on = @queue.how_many_items_can_be_work_on 2
-    number_of_items_that_can_be_worked_on.should be 0
-  end
-
 	it "should be able to enqueue items of work" do
 		@queue.enq Item.new(1)
 		@queue.length.should be 1
@@ -33,5 +14,14 @@ describe "Queue" do
 		@queue.enq Item.new(1)
 		@queue.enq Item.new(2)
 		@queue.deq.started_at.should be 1
+	end
+
+	it "should be able to tell if there are items of work available" do
+		@queue.enq Item.new(1)
+		@queue.has_available_items.should be true
+	end
+
+	it "should be able to tell if there are no items of work available" do
+		@queue.has_available_items.should be false
 	end
 end

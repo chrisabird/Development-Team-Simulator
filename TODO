@@ -4,3 +4,6 @@ TODO
 * A queue should be able to handing batching of work
 * A team members work duration should be based on there role and an items duration for that role
 * An item's duration per role should have variation of one standard deviation from a median
+* break up of work required for each role on an item? 
+* order in which work required is completed on an item 
+* should teams be able to cope with working in parralel ? 

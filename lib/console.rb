@@ -10,9 +10,9 @@ done_queue = ItemQueue.new
 		
 for i in 1..10 do
 	item = Item.new 1
-	item.add_estimate_for_role :analyst, 1
-	item.add_estimate_for_role :developer, 2
-	item.add_estimate_for_role :qa, 2
+	item.add_unit_of_work_for :analyst, UnitOfWork.new(1)
+	item.add_unit_of_work_for :developer, UnitOfWork.new(2)
+	item.add_unit_of_work_for :qa, UnitOfWork.new(2)
 	analyst_queue.enq item
 end
 
@@ -40,13 +40,13 @@ end
 
 puts ""
 puts "Lead times..."
-puts "started   completed lead time"
+puts "defined   completed lead time"
 numberOfCompletedItems = done_queue.length
 averageLeadTime = 0
 for i in 1..numberOfCompletedItems do
 	item = done_queue.deq
 	averageLeadTime = averageLeadTime + item.leadTime
-	print item.started_at.to_s.ljust(10)
+	print item.defined_at.to_s.ljust(10)
 	print item.completed_at.to_s.ljust(10)
 	puts item.leadTime
 end

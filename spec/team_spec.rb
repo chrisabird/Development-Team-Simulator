@@ -14,9 +14,9 @@ describe "Team" do
     @done_queue = ItemQueue.new
 
 		item = Item.new 1
-		item.add_estimate_for_role :analyst, 1
-		item.add_estimate_for_role :developer, 1
-		item.add_estimate_for_role :qa, 1
+		item.add_unit_of_work_for :analyst, UnitOfWork.new(1)
+		item.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item.add_unit_of_work_for :qa, UnitOfWork.new(1)
     @analyst_queue.enq item
     
     @analyst = TeamMember.new @developer_queue, @analyst_queue
@@ -50,7 +50,7 @@ describe "Team" do
     @done_queue.length.should be 1
 
     item = @done_queue.deq
-    item.started_at.should be 1
+    item.defined_at.should be 1
     item.completed_at.should be 3
     item.leadTime.should be 3
   end
@@ -58,15 +58,15 @@ describe "Team" do
   it "should be able to act like an iterative team" do
     batches = [Batch.new, Batch.new]
 		item1 = Item.new 1
-		item1.add_estimate_for_role :analyst, 1
-		item1.add_estimate_for_role :developer, 1
-		item1.add_estimate_for_role :qa, 1
+		item1.add_unit_of_work_for :analyst, UnitOfWork.new(1)
+		item1.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item1.add_unit_of_work_for :qa, UnitOfWork.new(1)
     batches[0].add_item_to_work_on item1
 		
 		item2 = Item.new 1
-		item2.add_estimate_for_role :analyst, 1
-		item2.add_estimate_for_role :developer, 1
-		item2.add_estimate_for_role :qa, 1
+		item2.add_unit_of_work_for :analyst, UnitOfWork.new(1)
+		item2.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item2.add_unit_of_work_for :qa, UnitOfWork.new(1)
     batches[1].add_item_to_work_on item2
     
     calendar = Calendar.new
@@ -103,13 +103,13 @@ describe "Team" do
 		qa_batch = Batch.new
 		
    	item_one = Item.new 1
-		item_one.add_estimate_for_role :analyst, 1
-		item_one.add_estimate_for_role :developer, 1
-		item_one.add_estimate_for_role :qa, 1
+		item_one.add_unit_of_work_for :analyst, UnitOfWork.new(1)
+		item_one.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item_one.add_unit_of_work_for :qa, UnitOfWork.new(1)
 		item_two = Item.new 1
-		item_two.add_estimate_for_role :analyst, 1
-		item_two.add_estimate_for_role :developer, 1
-		item_two.add_estimate_for_role :qa, 1
+		item_two.add_unit_of_work_for :analyst, UnitOfWork.new(1)
+		item_two.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item_two.add_unit_of_work_for :qa, UnitOfWork.new(1)
 
 		developer_batch.add_item_to_work_on item_one
 		developer_batch.add_item_to_work_on item_two

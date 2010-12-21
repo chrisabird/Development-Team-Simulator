@@ -27,7 +27,7 @@ class TeamMember
 		end
 
 		if working_on_item
-			work_on_item
+			work_on_item day
 			if item_is_completed
 				complete_the_item_on day
 			end
@@ -38,28 +38,22 @@ class TeamMember
 		@current_item != nil
 	end
 
-	def work_on_item
-		@time_spent_on_item = @time_spent_on_item + 1 
+	def work_on_item (day)
+		@current_item.do_work_for @roles, day
 	end
 	
 	def item_is_completed
-		@time_needed_to_complete_item == @time_spent_on_item
+		@current_item.all_work_completed_for @roles	
 	end
 
 	def complete_the_item_on (day)
-		@current_item.complete day 
 		@queue_to_put_completed_work_on.enq @current_item
 		@current_item = nil;
-		@time_spent_on_item = 0;
 	end
 
 	def pick_up_item_of_work_from_queue
 		if @queue_to_take_work_from.has_available_items
 			@current_item = @queue_to_take_work_from.deq
-			@time_needed_to_complete_item = 0
-			for role in @roles
-				@time_needed_to_complete_item = @time_needed_to_complete_item + @current_item.get_duration_for(role)
-			end
 		end
 	end
 end

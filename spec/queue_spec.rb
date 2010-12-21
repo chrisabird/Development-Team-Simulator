@@ -13,7 +13,7 @@ describe "Queue" do
 	it "should be able to dequeue items of work" do
 		@queue.enq Item.new(1)
 		@queue.enq Item.new(2)
-		@queue.deq.started_at.should be 1
+		@queue.deq.defined_at.should be 1
 	end
 
 	it "should be able to tell if there are items of work available" do

@@ -40,7 +40,7 @@ end
 
 puts ""
 puts "Lead times..."
-puts "defined   completed lead time"
+puts "defined   completed lead time  variance"
 numberOfCompletedItems = done_queue.length
 averageLeadTime = 0
 for i in 1..numberOfCompletedItems do
@@ -48,7 +48,8 @@ for i in 1..numberOfCompletedItems do
 	averageLeadTime = averageLeadTime + item.leadTime
 	print item.defined_at.to_s.ljust(10)
 	print item.completed_at.to_s.ljust(10)
-	puts item.leadTime
+	print item.leadTime.to_s.ljust(10)
+	puts item.variance
 end
 averageLeadTime = averageLeadTime / numberOfCompletedItems
 puts "Average lead time " + averageLeadTime.to_s

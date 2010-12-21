@@ -6,8 +6,13 @@ require 'batch'
 
 describe "Team" do
 
-  it "should be able to act like a simple push team" do
+	before(:each) do 
+		variance_mock = mock('variance')
+		variance_mock.stub(:calculate).and_return {|estimate| estimate}
+		Variance.stub!(:new).and_return(variance_mock)
+  end
 
+	it "should be able to act like a simple push team" do
     @analyst_queue = ItemQueue.new
     @developer_queue = ItemQueue.new
     @qa_queue = ItemQueue.new
@@ -56,7 +61,7 @@ describe "Team" do
   end
 
   it "should be able to act like an iterative team" do
-    batches = [Batch.new, Batch.new]
+		batches = [Batch.new, Batch.new]
 		item1 = Item.new 1
 		item1.add_unit_of_work_for :analyst, UnitOfWork.new(1)
 		item1.add_unit_of_work_for :developer, UnitOfWork.new(1)
@@ -98,7 +103,7 @@ describe "Team" do
   end
 
   it "should be able to work like a water fall team" do
-    analyst_batch = Batch.new
+		analyst_batch = Batch.new
 		developer_batch = Batch.new
 		qa_batch = Batch.new
 		

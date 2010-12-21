@@ -1,6 +1,12 @@
 require 'item'
 
 describe "Item" do
+	before(:each) do 
+		variance_mock = mock('variance')
+		variance_mock.stub(:calculate).and_return {|estimate| estimate}
+		Variance.stub!(:new).and_return(variance_mock)
+	end
+
 	it "should be able to calculate the lead time" do
 		item = Item.new 1
 		item.add_unit_of_work_for :developer, UnitOfWork.new(3)
@@ -45,5 +51,16 @@ describe "Item" do
 		item.do_work_for [:developer, :tester], 3
 		
 		item.all_work_completed_for([:developer, :tester]).should be true
+	end
+
+	it "should be able to work out the overall variance" do
+		item = Item.new 1
+		item.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item.add_unit_of_work_for :tester, UnitOfWork.new(1)
+
+		item.do_work_for [:developer], 1
+		item.do_work_for [:developer], 2
+
+		item.variance.should be 0	
 	end
 end

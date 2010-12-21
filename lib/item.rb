@@ -1,7 +1,7 @@
 require 'unit_of_work'
 
 class Item
-	attr_reader :defined_at, :units_of_work_for
+	attr_reader :defined_at
 	
 	def initialize(defined_at)
 		@defined_at = defined_at
@@ -11,6 +11,14 @@ class Item
 	def completed_at
 		unit = @units_of_work_for.values.max {|a,b| a.completed_at <=> b.completed_at}
 		unit.completed_at
+	end
+
+	def variance
+		total = 0
+		for unit in @units_of_work_for.values
+			total = total + unit.variance
+		end
+		return total
 	end
 
 	def all_work_completed_for (roles)

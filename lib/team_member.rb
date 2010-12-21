@@ -2,8 +2,6 @@ class TeamMember
  	def initialize(queue_to_put_completed_work_on, queue_to_take_work_from)
    	@queue_to_put_completed_work_on = queue_to_put_completed_work_on
 		@queue_to_take_work_from = queue_to_take_work_from
-		@time_spent_on_item = 0
-		@time_needed_to_complete_item = 0
 		@current_item = nil
 		@roles = []
  	end

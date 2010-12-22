@@ -13,6 +13,11 @@ class Item
 		unit.completed_at
 	end
 
+	def started_at
+		unit = @units_of_work_for.values.min {|a,b| a.started_at <=> b.started_at}
+		unit.started_at
+	end
+
 	def variance
 		total = 0
 		for unit in @units_of_work_for.values
@@ -40,8 +45,12 @@ class Item
 		end
 	end
 
-	def leadTime
+	def lead_time
 		(completed_at - @defined_at ) + 1
+	end
+
+	def cycle_time
+		(completed_at - started_at) + 1
 	end
 
 	def add_unit_of_work_for (role_name, unit_of_work)

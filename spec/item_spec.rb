@@ -15,7 +15,7 @@ describe "Item" do
 		item.do_work_for [:developer], 4
 		item.do_work_for [:developer], 5
 		
-		item.leadTime.should be 5
+		item.lead_time.should be 5
 	end
 
 	it "should be able to tell if all work has been completed for a role" do
@@ -63,4 +63,20 @@ describe "Item" do
 
 		item.variance.should be 0	
 	end
+
+	it "should be able to tell when it was started" do
+		item = Item.new 1
+		item.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item.do_work_for [:developer], 3
+		item.started_at.should be 3
+	end
+
+	it "should be able to calculate cycle time" do
+		item = Item.new 1
+		item.add_unit_of_work_for :developer, UnitOfWork.new(2)
+		item.do_work_for [:developer], 3
+		item.do_work_for [:developer], 4
+		item.cycle_time.should be 2
+	end
+
 end

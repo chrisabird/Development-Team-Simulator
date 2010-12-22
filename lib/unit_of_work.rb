@@ -1,6 +1,8 @@
 require 'variance'
 
 class UnitOfWork
+	attr_reader :started_at 
+
 	def initialize (estimate)
 		@estimate = estimate
 	end

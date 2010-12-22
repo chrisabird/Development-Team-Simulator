@@ -57,7 +57,7 @@ describe "Team" do
     item = @done_queue.deq
     item.defined_at.should be 1
     item.completed_at.should be 3
-    item.leadTime.should be 3
+    item.lead_time.should be 3
   end
 
   it "should be able to act like an iterative team" do
@@ -98,8 +98,8 @@ describe "Team" do
       end
     end
 
-    batches[0].completed_work[0].leadTime.should be 3
-    batches[1].completed_work[0].leadTime.should be 6
+    batches[0].completed_work[0].lead_time.should be 3
+    batches[1].completed_work[0].lead_time.should be 6
   end
 
   it "should be able to work like a water fall team" do
@@ -146,7 +146,7 @@ describe "Team" do
     	calendar.move_to_next_day
     end
 
-    qa_batch.completed_work[0].leadTime.should be 5
-    qa_batch.completed_work[1].leadTime.should be 6
+    qa_batch.completed_work[0].lead_time.should be 5
+    qa_batch.completed_work[1].lead_time.should be 6
   end
 end

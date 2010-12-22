@@ -18,9 +18,13 @@ class TeamMember
 		@roles << role_name
 	end
 
+	def limit_target_queue_to_minimum_of (limit)
+		@limit = limit
+	end
+
 	private
 	def do_work_on (day)
-		if !working_on_item
+		if !working_on_item && target_queue_required_work
 			pick_up_item_of_work_from_queue
 		end
 
@@ -30,6 +34,10 @@ class TeamMember
 				complete_the_item_on day
 			end
 		end
+	end
+
+	def target_queue_required_work
+		@limit == nil || @queue_to_put_completed_work_on.length < @limit
 	end
 
 	def working_on_item

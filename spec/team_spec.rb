@@ -59,6 +59,46 @@ describe "Team" do
     item.completed_at.should be 3
     item.lead_time.should be 3
   end
+	
+	it "should be able to act like a simple pull team" do
+    @analyst_queue = ItemQueue.new
+    @developer_queue = ItemQueue.new
+    @qa_queue = ItemQueue.new
+    @done_queue = ItemQueue.new
+
+		item = Item.new 1
+		item.add_unit_of_work_for :analyst, UnitOfWork.new(1)
+		item.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		item.add_unit_of_work_for :qa, UnitOfWork.new(1)
+    @analyst_queue.enq item
+    
+    @analyst = TeamMember.new @developer_queue, @analyst_queue
+		@analyst.add_role :analyst
+		@analyst.limit_target_queue_to_minimum_of 2
+
+		@developer = TeamMember.new @qa_queue, @developer_queue
+		@developer.add_role :developer
+    @developer.limit_target_queue_to_minimum_of 2
+		
+		@qa = TeamMember.new @done_queue, @qa_queue
+		@qa.add_role :qa
+		@qa.limit_target_queue_to_minimum_of 2
+    
+    @calendar = Calendar.new
+    @qa.listen_to @calendar
+    @developer.listen_to @calendar
+    @analyst.listen_to @calendar
+        
+    @calendar.move_to_next_day
+    @calendar.move_to_next_day
+    @calendar.move_to_next_day
+
+    item = @done_queue.deq
+    item.defined_at.should be 1
+    item.completed_at.should be 3
+    item.lead_time.should be 3
+  end
+
 
   it "should be able to act like an iterative team" do
 		batches = [Batch.new, Batch.new]

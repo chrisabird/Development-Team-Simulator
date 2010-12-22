@@ -65,4 +65,18 @@ describe "TeamMember" do
 		@completed_work_queue.length.should be 1
 		@completed_work_queue.deq.completed_at.should be 2
 	end
+
+	it "should only do work if the target queue is below minimum limit" do 
+		item_of_work = Item.new(1)
+		item_of_work.add_unit_of_work_for :developer, UnitOfWork.new(1)
+		@available_work_queue.enq item_of_work
+		@completed_work_queue.enq Item.new(1)
+
+		team_member = TeamMember.new @completed_work_queue, @available_work_queue
+		team_member.limit_target_queue_to_minimum_of 1
+		team_member.add_role :developer
+		team_member.update 1
+	
+		@completed_work_queue.length.should be 1
+	end
 end
